@@ -1,3 +1,5 @@
-Calculatrice PHP  
+**Calculatrice PHP**
+
 SAADAOUI Fayrouz  
+
 TOMEZAK Melvin
