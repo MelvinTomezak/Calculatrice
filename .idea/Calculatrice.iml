@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/Calculs" isTestSource="false" packagePrefix="Calculs\" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Interfaces" isTestSource="false" packagePrefix="Interfaces\" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Operateurs" isTestSource="false" packagePrefix="Operateurs\" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Donnees" isTestSource="false" packagePrefix="Donnees\" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpstan" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

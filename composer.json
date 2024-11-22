@@ -1,0 +1,14 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Donnees\\": "src/Donnees/",
+            "Interfaces\\": "src/Interfaces/",
+            "Operateurs\\": "src/Operateurs/",
+            "Calculs\\": "src/Calculs/"
+        }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.12",
+        "squizlabs/php_codesniffer": "^3.10"
+    }
+}
