@@ -24,19 +24,19 @@ $filename = __DIR__ . '/input.txt';
 $expressions = lireFichier($filename);
 
 if (empty($expressions)) {
-    echo "Aucune expression dans le fichier ou erreur de lecture.\n";
+    echo "Fichier vide";
     exit(1);
 }
 $calculatrice= new Calculatrice();
 $gestionPrioriter = new GestionPrioriter($calculatrice);
 
 foreach ($expressions as $expression) {
-    echo "Expression: $expression\n";
+    echo "Calcul:  $expression\n";
     try {
         $resultat = $gestionPrioriter->calculer($expression);
         echo "Résultat: $resultat\n";
     } catch (\Exception $e) {
-        echo "Erreur lors du calcul: " . $e->getMessage() . "\n";
+        echo "Calcul invalide " . $e->getMessage() . "\n";
     }
 }
 
