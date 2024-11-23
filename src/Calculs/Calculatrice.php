@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class Calculatrice permet de regrouper tout nos opérateurs dans un tableau.
+ * On appelle Calculatrice dans GestionPrioriter pour pouvoir accéder a ce tableau
+ * et donc a nos opérateurs.
+ */
 namespace Calculs;
 
 use Operateurs\Addition;

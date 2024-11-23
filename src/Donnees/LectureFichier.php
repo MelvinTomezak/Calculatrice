@@ -1,4 +1,8 @@
 <?php
+/**
+ * La class LectureFichier permet de récupérer les données pour effectuer un calcul
+ * présente dans un fichier texte. (Exemple 3 *2, ...)
+ */
 
 namespace Donnees;
 
@@ -13,25 +17,22 @@ class LectureFichier
 
     public function lire(): array
     {
-        // Vérifier si le fichier existe
         if (!file_exists($this->filename)) {
-            echo "Le fichier {$this->filename} n'existe pas.\n";
-            return []; // Retourner un tableau vide en cas d'erreur
+            echo "Pas de fichier {$this->filename} ";
+            return [];
         }
 
-        // Ouvrir le fichier en mode lecture
         $file = fopen($this->filename, 'r');
         if (!$file) {
-            echo "Impossible d'ouvrir le fichier {$this->filename}.\n";
-            return []; // Retourner un tableau vide en cas d'erreur
+            echo "Fichier pas trouver {$this->filename}";
+            return [];
         }
 
         $expressions = [];
-        // Lire chaque ligne et la stocker dans un tableau
         while (($ligne = fgets($file)) !== false) {
-            $ligne = trim($ligne); // Enlever les espaces et retours à la ligne inutiles
+            $ligne = trim($ligne);
             if ($ligne !== '') {
-                $expressions[] = $ligne; // Ajouter l'expression au tableau
+                $expressions[] = $ligne;
             }
         }
 

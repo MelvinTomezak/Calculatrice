@@ -1,36 +1,39 @@
 <?php
+/**
+ * Script de lancement du programme qui utilise :
+ * Calculatrice pour pouvoir accéder aux oppérateurs
+ * LectureFichier pour pouvoir accéder aux données presentent dans un fichier ("input.txt")
+ * GestionPrioriter pour effectuer le calculs tout en respectant les prioriters de calculs.
+ */
 
 declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Calculs\GestionPrioriter;  // Utilisation de la nouvelle classe
+use Calculs\Calculatrice;
+use Calculs\GestionPrioriter;
 use Donnees\LectureFichier;
 
-// Fonction pour lire le fichier d'entrée
 function lireFichier(string $filename): array
 {
     $lecteur = new LectureFichier($filename);
     return $lecteur->lire();
 }
 
-// Spécifiez le chemin vers votre fichier d'entrée
-$filename = __DIR__ . '/input.txt';  // Chemin du fichier d'entrée
+$filename = __DIR__ . '/input.txt';
 $expressions = lireFichier($filename);
 
-// Vérification si des expressions ont été lues
 if (empty($expressions)) {
     echo "Aucune expression dans le fichier ou erreur de lecture.\n";
     exit(1);
 }
+$calculatrice= new Calculatrice();
+$gestionPrioriter = new GestionPrioriter($calculatrice);
 
-$gestionPrioriter = new GestionPrioriter();  // Création de l'objet GestionPriorites
-
-// Traitement de chaque expression lue dans le fichier
 foreach ($expressions as $expression) {
     echo "Expression: $expression\n";
     try {
-        $resultat = $gestionPrioriter->calculer($expression);  // Appel à la méthode calculer
+        $resultat = $gestionPrioriter->calculer($expression);
         echo "Résultat: $resultat\n";
     } catch (\Exception $e) {
         echo "Erreur lors du calcul: " . $e->getMessage() . "\n";

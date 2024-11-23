@@ -1,69 +1,60 @@
 <?php
-
+/**
+ * Class GestionPrioriter, elle vas nous permettre de
+ * calculer d'abord les parenthéses, puis les * et / et en fin les + et -
+ * On appelle la class Calculatrice pour pouvoir accéder aux opérateurs.
+ */
 namespace Calculs;
 
 class GestionPrioriter
 {
-    public function calculer(string $expression): float
-    {
-        // Suppression des espaces
-        $expression = str_replace(' ', '', $expression);
+    private Calculatrice $calculatrice;
 
-        // Évaluation de l'expression avec respect des priorités (parenthèses, *, /, +, -)
-        return $this->evaluer($expression);
+    public function __construct(Calculatrice $calculatrice)
+    {
+        $this->calculatrice = $calculatrice;
     }
 
-    private function evaluer(string $expression): float
+    public function calculer(string $expression): float
     {
-        // Résoudre les parenthèses en premier
+        $expression = str_replace(' ', '', $expression);
+
+        return $this->prioriter($expression);
+    }
+
+    private function prioriter(string $expression): float
+    {
         while (preg_match('/\(([^()]+)\)/', $expression, $matches)) {
-            // Appliquer récursivement l'évaluation sur les parenthèses
-            $resultatParentheses = $this->evaluer($matches[1]);
+            $resultatParentheses = $this->prioriter($matches[1]);
             $expression = str_replace($matches[0], $resultatParentheses, $expression);
         }
 
-        // Calculer la multiplication et la division
         $expression = $this->calculerOperations($expression, ['*', '/']);
 
-        // Calculer l'addition et la soustraction
         $expression = $this->calculerOperations($expression, ['+', '-']);
 
-        // Retourner le résultat final
         return (float)$expression;
     }
 
     private function calculerOperations(string $expression, array $operations): string
     {
-        foreach ($operations as $op) {
-            // Trouver toutes les occurrences de l'opération (ex: a * b, a / b, a + b, a - b)
-            while (preg_match('/(-?\d+(\.\d+)?)\s*' . preg_quote($op, '/') . '\s*(-?\d+(\.\d+)?)/', $expression, $matches)) {
-                $a = (float)$matches[1];
-                $b = (float)$matches[3];
+        $operationsMap = $this->calculatrice->getOperations();
 
-                // Effectuer l'opération en fonction de l'opérateur
-                switch ($op) {
-                    case '*':
-                        $resultat = $a * $b;
-                        break;
-                    case '/':
-                        if ($b == 0) {
-                            throw new \InvalidArgumentException("Division par zéro");
-                        }
-                        $resultat = $a / $b;
-                        break;
-                    case '+':
-                        $resultat = $a + $b;
-                        break;
-                    case '-':
-                        $resultat = $a - $b;
-                        break;
-                    default:
-                        throw new \InvalidArgumentException("Opérateur inconnu");
-                }
+        $pattern = '/(-?\d+(\.\d+)?)([' . preg_quote(implode('', $operations), '/') . '])(-?\d+(\.\d+)?)/';
 
-                // Remplacer l'opération dans l'expression par le résultat
-                $expression = preg_replace('/' . preg_quote($matches[0], '/') . '/', (string)$resultat, $expression, 1);
+        while (preg_match($pattern, $expression, $matches)) {
+            $gauche = (float)$matches[1];
+            $op = $matches[3];
+            $droite = (float)$matches[4];
+
+            if (!array_key_exists($op, $operationsMap)) {
+                throw new \InvalidArgumentException("Opérateur incorrect $op");
             }
+
+            $operation = $operationsMap[$op];
+            $resultat = $operation->calcul($gauche, $droite);
+
+            $expression = str_replace($matches[0], (string)$resultat, $expression);
         }
 
         return $expression;
