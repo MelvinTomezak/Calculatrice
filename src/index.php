@@ -1,14 +1,14 @@
 <?php
+/**
+ * Script pour vérifier qu'il n'y a pas d'erreur dans le input.txt
 
-require_once 'Donnees/LectureFichier.php'; // Le bon chemin relatif
+ */
+require_once 'Donnees/LectureFichier.php';
 
-use Donnees\LectureFichier; // Assurez-vous que le namespace est correct
+use Donnees\LectureFichier;
 
-// Définir le chemin du fichier à lire
 $filename = 'input.txt';
 
-// Créer une instance de LectureFichier
 $lecteur = new LectureFichier($filename);
 
-// Lire et afficher le contenu du fichier
 $lecteur->lire();
