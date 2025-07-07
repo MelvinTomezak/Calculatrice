@@ -6,8 +6,11 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Tests\\' => array($baseDir . '/tests'),
+    'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Operateurs\\' => array($baseDir . '/src/Operateurs'),
     'Interfaces\\' => array($baseDir . '/src/Interfaces'),
     'Donnees\\' => array($baseDir . '/src/Donnees'),
+    'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'Calculs\\' => array($baseDir . '/src/Calculs'),
 );
