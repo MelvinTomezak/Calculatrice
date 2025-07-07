@@ -1,7 +1,6 @@
 # Calculatrice PHP
 
 ## Auteurs  
-- SAADAOUI Fayrouz  
 - TOMEZAK Melvin  
 
 ## Prérequis  
